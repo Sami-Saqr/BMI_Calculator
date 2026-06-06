@@ -12,7 +12,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   var emailController = TextEditingController();
-
+  var formKey = GlobalKey<FormState>();
   var passwordController = TextEditingController();
 
   @override
@@ -21,81 +21,81 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 150),
+          child: Form(
+            key: formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 150),
 
-              Text(
-                'Login',
-                style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 50),
-              TextFormField(
-                controller: emailController,
-                keyboardType: TextInputType.emailAddress,
-
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.person),
-
-                  labelText: 'Email',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                Text(
+                  'Login',
+                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
                 ),
-                onFieldSubmitted: (value) {
-                  print(value);
-                },
-              ),
-              SizedBox(height: 20),
-              TextFormField(
-                controller: passwordController,
-                obscureText: true,
-                onFieldSubmitted: (value) {
-                  print(value);
-                },
-                decoration: InputDecoration(
+                SizedBox(height: 50),
+                defaultTextField(
+                  controller: passwordController,
+                  prefixIcon: Icon(Icons.person),
+                  labelText: 'Email',
+                  function: (String value) {
+                    if (value.isEmpty) {
+                      return 'This field should not be empty';
+                    }
+                    return null;
+                  },
+                  type: TextInputType.emailAddress,
+                ),
+                SizedBox(height: 20),
+                defaultTextField(
+                  type: TextInputType.visiblePassword,
+                  controller: emailController,
                   prefixIcon: Icon(Icons.lock),
                   labelText: 'Password',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+                  function: (String value) {
+                    if (value.isEmpty) {
+                      return 'This field should not be empty';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 30),
+                defaultButton(
+                  width: double.infinity,
+                  backgroundColor: Colors.transparent,
+                  text: 'Login',
+                  function: () {
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => MessengerScreen()),
+                    if (formKey.currentState!.validate()) {
+                      print(emailController.text);
+                      print(emailController.text);
+                    }
+                  },
+                ),
+                SizedBox(height: 20),
+
+                Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Don't have an account?"),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MessengerScreen(),
+                            ),
+                          );
+                        },
+                        child: Text('Register Now'),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-              SizedBox(height: 30),
-              defaultButton(
-                width: double.infinity,
-                backgroundColor: Colors.transparent,
-                text: 'Login',
-                function: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MessengerScreen()),
-                  );
-                },
-              ),
-              SizedBox(height: 20),
-
-              Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("Don't have an account?"),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => MessengerScreen(),
-                          ),
-                        );
-                      },
-                      child: Text('Register Now'),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
