@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 
-class DataModel {
-  final String id;
-  final String name;
-  final String phone;
+import '../../models/user/user_model.dart';
 
-  const DataModel({required this.id, required this.name, required this.phone});
-}
+
 
 class UsersScreen extends StatelessWidget {
 

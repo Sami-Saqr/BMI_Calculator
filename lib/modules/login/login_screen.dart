@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_test_two/messenger_screen.dart';
+import 'package:flutter_test_two/modules/messenger/messenger_screen.dart';
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+import '../../shared/component/component.dart';
 
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   var emailController = TextEditingController();
+
   var passwordController = TextEditingController();
 
   @override
@@ -17,7 +25,7 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 150),
-          
+
               Text(
                 'Login',
                 style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
@@ -26,10 +34,10 @@ class HomeScreen extends StatelessWidget {
               TextFormField(
                 controller: emailController,
                 keyboardType: TextInputType.emailAddress,
-          
+
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.person),
-          
+
                   labelText: 'Email',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -55,38 +63,35 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 30),
-              Center(
-                child: SizedBox(
-                  width: double.infinity,
-                  child: OutlinedButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => MessengerScreen()));
-
-                      print('Email: ${emailController.text}');
-                      print('Password: ${passwordController.text}');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.transparent,
-          
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: Text('Login', style: TextStyle(color: Colors.black)),
-                  ),
-                ),
+              defaultButton(
+                width: double.infinity,
+                backgroundColor: Colors.transparent,
+                text: 'Login',
+                function: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MessengerScreen()),
+                  );
+                },
               ),
               SizedBox(height: 20),
-          
+
               Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text("Don't have an account?"),
-                    TextButton(onPressed: () {
-                      Navigator.push(context,MaterialPageRoute(builder: (context) => MessengerScreen()));
-                    }, child: Text('Register Now')),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MessengerScreen(),
+                          ),
+                        );
+                      },
+                      child: Text('Register Now'),
+                    ),
                   ],
                 ),
               ),
