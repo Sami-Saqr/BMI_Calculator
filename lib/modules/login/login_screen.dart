@@ -14,6 +14,7 @@ class _LoginScreenState extends State<LoginScreen> {
   var emailController = TextEditingController();
   var formKey = GlobalKey<FormState>();
   var passwordController = TextEditingController();
+  bool isPasswordShow = true;
 
   @override
   Widget build(BuildContext context) {
@@ -34,26 +35,37 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(height: 50),
                 defaultTextField(
-                  controller: passwordController,
+                  controller: emailController,
                   prefixIcon: Icon(Icons.person),
                   labelText: 'Email',
-                  function: (String value) {
-                    if (value.isEmpty) {
-                      return 'This field should not be empty';
+
+                  type: TextInputType.emailAddress,
+                  function: (String? value) {
+                    if (value!.isEmpty) {
+                      return 'Email field can not be empty';
                     }
                     return null;
                   },
-                  type: TextInputType.emailAddress,
+                  isPassword: false,
                 ),
                 SizedBox(height: 20),
                 defaultTextField(
+                  suffix: isPasswordShow
+                      ? Icons.visibility
+                      : Icons.visibility_off,
+                  suffixPressed: () {
+                    setState(() {
+                      isPasswordShow = !isPasswordShow;
+                    });
+                  },
+                  isPassword: isPasswordShow,
                   type: TextInputType.visiblePassword,
-                  controller: emailController,
+                  controller: passwordController,
                   prefixIcon: Icon(Icons.lock),
                   labelText: 'Password',
-                  function: (String value) {
-                    if (value.isEmpty) {
-                      return 'This field should not be empty';
+                  function: (String? value) {
+                    if (value!.isEmpty) {
+                      return 'Password field can not be empty';
                     }
                     return null;
                   },
@@ -63,6 +75,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: double.infinity,
                   backgroundColor: Colors.transparent,
                   text: 'Login',
+                  function: () {
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => MessengerScreen()),
+                    if (formKey.currentState!.validate()) {
+                      print('Email: ${emailController.text}');
+                      print('Password: ${passwordController.text}');
+                    }
+                  },
+                ),defaultButton(
+                  width: double.infinity,
+                  backgroundColor: Colors.transparent,
+                  text: 'Register',
                   function: () {
                     // Navigator.push(
                     //   context,

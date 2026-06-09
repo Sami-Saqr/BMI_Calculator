@@ -1,0 +1,15 @@
+import 'package:flutter/cupertino.dart';
+
+class ArchivedScreen extends StatelessWidget {
+  const ArchivedScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child:
+      Text(
+        'Archived Screen'
+      ),
+    );
+  }
+}

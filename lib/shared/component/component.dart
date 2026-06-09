@@ -23,17 +23,26 @@ Widget defaultTextField({
   required TextEditingController controller,
   required Icon prefixIcon,
   required String labelText,
-  required Function function,
   required TextInputType type,
+  required String? Function(String?)? function,
+  required bool isPassword,
+  Function()? suffixPressed,
+  IconData? suffix,
 }) => TextFormField(
   controller: controller,
   keyboardType: type,
-  obscureText: true,
+
+  obscureText: isPassword,
+
   onFieldSubmitted: (value) {
     print(value);
   },
-  validator: function(),
+
+  validator: function,
   decoration: InputDecoration(
+    suffixIcon: suffix != null
+        ? IconButton(icon: Icon(suffix), onPressed: suffixPressed)
+        : null,
     prefixIcon: prefixIcon,
     labelText: labelText,
     border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),

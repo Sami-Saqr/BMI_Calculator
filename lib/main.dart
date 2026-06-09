@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_two/modules/users/users_screen.dart' show UsersScreen;
 
+import 'layout/home_layout.dart';
 import 'modules/bmi/bmi_calculator.dart';
 import 'modules/bmi/bmi_calculator_two.dart';
 import 'modules/bmi_result/bmi_result_screen.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: HomeLayout(),
     );
   }
 }
