@@ -27,8 +27,10 @@ Widget defaultTextField({
   required String? Function(String?)? function,
   required bool isPassword,
   Function()? suffixPressed,
+  Function()? onTap,
   IconData? suffix,
 }) => TextFormField(
+  onTap: onTap,
   controller: controller,
   keyboardType: type,
 
